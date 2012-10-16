@@ -1,0 +1,39 @@
+.note {
+	display: none;
+	background: url(spacer.gif); 
+	border: 2px solid rgb(255, 255, 255); 
+	overflow: hidden; 
+	position: absolute; 
+	z-index: 0;
+	cursor: text;
+}
+
+.notep {
+	display: none; 
+	font-size: 8pt; 
+	margin-top: 0px;
+	max-width:150px;
+	position: absolute;
+	cursor: text;
+} 
+
+.notep .note-by-owner{
+	padding: 4px;
+	background: #FF6; 
+
+} 
+.notep .note-by-user{
+	padding: 4px;
+	background: #eee; 
+
+} 
+
+#noteform {
+	display: none;
+	position: absolute;
+	width: 250px;
+}
+
+#noteform textarea{
+	width: 100%;
+}
