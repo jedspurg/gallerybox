@@ -1,4 +1,4 @@
-<?php 
+<?php   
 defined('C5_EXECUTE') or die("Access Denied.");
 
 	Loader::helper('concrete/file');
@@ -37,25 +37,30 @@ class GalleryboxRecentBlockController extends BlockController {
 		}else{
 			$fs = FileSet::getByName('user_gallery_'.$uID);
 		}
-		$fileList = new FileList();		
-		$fileList->filterBySet($fs);
-		$fileList->filterByType(FileType::T_IMAGE);	
-
-		$fldca = new FileManagerAvailableColumnSet();
-
-		$columns = new FileManagerColumnSet();
-
-		$sortCol = $fldca->getColumnByKey('fDateAdded');
-		$columns->setDefaultSortColumn($sortCol, 'desc');
-
-		$columns = FileManagerColumnSet::getCurrent();
+		
+		if(is_object($fs)){
+			$fileList = new FileList();		
+			$fileList->filterBySet($fs);
+			$fileList->filterByType(FileType::T_IMAGE);	
 	
-		$col = $columns->getDefaultSortColumn();	
-		$fileList->sortBy($col->getColumnKey(), $col->getColumnDefaultSortDirection());
+			$fldca = new FileManagerAvailableColumnSet();
+	
+			$columns = new FileManagerColumnSet();
+	
+			$sortCol = $fldca->getColumnByKey('fDateAdded');
+			$columns->setDefaultSortColumn($sortCol, 'desc');
+	
+			$columns = FileManagerColumnSet::getCurrent();
 		
-		$files = $fileList->get(intval($numImgs));
-		
-		return $files;
+			$col = $columns->getDefaultSortColumn();	
+			$fileList->sortBy($col->getColumnKey(), $col->getColumnDefaultSortDirection());
+			
+			$files = $fileList->get(intval($numImgs));
+			
+			return $files;
+		}else{
+			return false;
+		}
 	}
 	
 	function delete(){	
