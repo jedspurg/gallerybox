@@ -37,30 +37,25 @@ class GalleryboxRecentBlockController extends BlockController {
 		}else{
 			$fs = FileSet::getByName('user_gallery_'.$uID);
 		}
+		$fileList = new FileList();		
+		$fileList->filterBySet($fs);
+		$fileList->filterByType(FileType::T_IMAGE);	
+
+		$fldca = new FileManagerAvailableColumnSet();
+
+		$columns = new FileManagerColumnSet();
+
+		$sortCol = $fldca->getColumnByKey('fDateAdded');
+		$columns->setDefaultSortColumn($sortCol, 'desc');
+
+		$columns = FileManagerColumnSet::getCurrent();
+	
+		$col = $columns->getDefaultSortColumn();	
+		$fileList->sortBy($col->getColumnKey(), $col->getColumnDefaultSortDirection());
 		
-		if(is_object($fs)){
-			$fileList = new FileList();		
-			$fileList->filterBySet($fs);
-			$fileList->filterByType(FileType::T_IMAGE);	
-	
-			$fldca = new FileManagerAvailableColumnSet();
-	
-			$columns = new FileManagerColumnSet();
-	
-			$sortCol = $fldca->getColumnByKey('fDateAdded');
-			$columns->setDefaultSortColumn($sortCol, 'desc');
-	
-			$columns = FileManagerColumnSet::getCurrent();
+		$files = $fileList->get(intval($numImgs));
 		
-			$col = $columns->getDefaultSortColumn();	
-			$fileList->sortBy($col->getColumnKey(), $col->getColumnDefaultSortDirection());
-			
-			$files = $fileList->get(intval($numImgs));
-			
-			return $files;
-		}else{
-			return false;
-		}
+		return $files;
 	}
 	
 	function delete(){	

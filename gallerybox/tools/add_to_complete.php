@@ -1,4 +1,4 @@
-<?php  
+<?php    
 defined('C5_EXECUTE') or die(_("Access Denied."));
 $u = new User();
 $form = Loader::helper('form');
@@ -94,7 +94,7 @@ if ($_POST['task'] == 'update_uploaded_details') {
 
 if (!isset($_REQUEST['reload'])) { ?>
 	<div id="ccm-file-properties-wrapper">
-<?php   } ?>
+<?php     } ?>
 
 <script type="text/javascript">
 $(function() {
@@ -102,31 +102,25 @@ $(function() {
 });
 </script>
 
-<style type="text/css">
-div.ccm-add-files-complete div.ccm-message {margin-bottom: 0px}
-table.ccm-grid input.ccm-input-text, table.ccm-grid textarea {width: 100%}
-table.ccm-grid td {padding-right: 20px; width: 230px}
-table.ccm-grid th {width: 70px}
-</style>
-<?php  $gbatc = Loader::helper('concrete/urls')->getToolsURL('add_to_complete', 'gallerybox');?>
-<form method="post" id="ccm-<?php  echo $searchInstance?>-update-uploaded-details-form" action="<?php  echo $gbatc?>">
+<div class="ccm-ui">
+<?php    $gbatc = Loader::helper('concrete/urls')->getToolsURL('add_to_complete', 'gallerybox');?>
+<form method="post" id="ccm-<?php    echo $searchInstance?>-update-uploaded-details-form" action="<?php    echo $gbatc?>">
 
 <div class="ccm-add-files-complete">
 
-<table border="0" cellspacing="0" cellpadding="0">
+<table>
 <tr>
 	<td width="100%">
-	<?php   if (count($_REQUEST['fID']) == 1) { ?>
-		<div class="ccm-message"><strong><?php  echo t('1 file uploaded successfully.')?></strong></div>
-	<?php   } else { ?>
-		<div class="ccm-message"><strong><?php  echo t('%s files uploaded successfully.', count($_REQUEST['fID']))?></strong></div>
-	<?php   } ?>
+	<?php     if (count($_REQUEST['fID']) == 1) { ?>
+		<div class="ccm-message"><strong><?php    echo t('1 file uploaded successfully.')?></strong></div>
+	<?php     } else { ?>
+		<div class="ccm-message"><strong><?php    echo t('%s files uploaded successfully.', count($_REQUEST['fID']))?></strong></div>
+	<?php     } ?>
 	</td>
-	<td><div style="width: 20px">&nbsp;</div></td>
 	<td>
-	<?php  
+	<?php    
 	$ci = Loader::helper('concrete/interface');
-	print $ci->submit(t('Save'), 'ccm-' . $searchInstance . '-update-uploaded-details-form', 'left');
+	print $ci->submit(t('Save'), 'ccm-' . $searchInstance . '-update-uploaded-details-form', 'primary');
 	?>
 	</td>
 </tr>
@@ -136,56 +130,54 @@ table.ccm-grid th {width: 70px}
 
 <div class="ccm-spacer">&nbsp;</div>
 
-<?php  echo $form->hidden('task', 'update_uploaded_details')?>
-<?php   foreach($files as $f) { ?>
-	<input type="hidden" name="fID[]" value="<?php  echo $f->getFileID();?>" />
-<?php   } ?>
-<input type="hidden" name="searchInstance" value="<?php  echo $searchInstance?>" />
-<input type="hidden" name="numFiles" value="<?php  echo count($files)?>" />
+<?php    echo $form->hidden('task', 'update_uploaded_details')?>
+<?php     foreach($files as $f) { ?>
+	<input type="hidden" name="fID[]" value="<?php    echo $f->getFileID();?>" />
+<?php     } ?>
+<input type="hidden" name="searchInstance" value="<?php    echo $searchInstance?>" />
+<input type="hidden" name="numFiles" value="<?php    echo count($files)?>" />
 
-<hr/>
 
-<table border="0" cellspacing="0" cellpadding="0" width="100%">
+<table>
 <tr>
-	<td width="50%" valign="top">
-		<h1 style="margin-top: 12px"><?php  echo t('Image Details')?></h1>
+	<td style="width:50%" valign="top">
 		
 		<div id="ccm-file-properties">
-		<h2><?php  echo t('Basic Properties')?></h2>
+		<h3><?php    echo t('Basic Properties')?></h3>
 		<table border="0" cellspacing="0" cellpadding="0" class="ccm-grid">  
 		<tr>
-			<th><?php  echo t('Title')?></th>
-			<td><?php   if (count($files) > 1) { ?><?php  echo t('Multiple Images')?><?php   } else { ?><?php  echo $form->text('fvTitle', $files[0]->getTitle())?><?php   } ?></td>
+			<td><?php    echo t('Title')?></td>
+			<td><?php     if (count($files) > 1) { ?><?php    echo t('Multiple Images')?><?php     } else { ?><?php    echo $form->text('fvTitle', $files[0]->getTitle())?><?php     } ?></td>
 		</tr>
 		<tr>
-			<th><?php  echo t('Description')?></th>
-			<td><?php  echo $form->textarea('fvDescription')?></td>
+			<td><?php    echo t('Description')?></td>
+			<td><?php    echo $form->textarea('fvDescription')?></td>
 		</tr>
 		<tr>
-			<th><?php  echo t('Tags')?></th>
-			<td><?php  echo $form->textarea('fvTags')?></td>
+			<td><?php    echo t('Tags')?></td>
+			<td><?php    echo $form->textarea('fvTags')?></td>
 		</tr>
 		</table>
 		
-		<?php   
+		<?php     
 		
 		if (count($attribs) > 0) { ?>
 		
 		<br/>
 		
-		<h2><?php  echo t('Other Properties')?></h2>
+		<h3><?php    echo t('Other Properties')?></h3>
 		<table border="0" cellspacing="0" cellpadding="0" class="ccm-grid">
-		<?php  
+		<?php    
 		foreach($attribs as $at) { ?>
 		
 		<tr>
-			<th><?php  echo $at->getAttributeKeyName()?></th>
-			<td><?php  echo $at->render('form', false, true)?>
+			<td><?php    echo $at->getAttributeKeyName()?></td>
+			<td><?php    echo $at->render('form', false, true)?>
 		</tr>
 		
-		<?php   } ?>
+		<?php     } ?>
 		</table>
-		<?php   } ?>
+		<?php     } ?>
 		
 		</div>
 
@@ -193,9 +185,9 @@ table.ccm-grid th {width: 70px}
 	<td><div style="width: 20px">&nbsp;</div></td>
 	<td valign="top">
 	
-	<div class="ccm-files-add-to-sets-wrapper"><?php   Loader::packageElement('add_to_user_sets','gallerybox', array('disableForm' => true)) ?></div>
+	<div class="ccm-files-add-to-sets-wrapper"><?php     Loader::packageElement('add_to_user_sets','gallerybox', array('disableForm' => true)) ?></div>
 	<br/>	
-	<div class="ccm-note"><?php  echo t('You can assign images to multiple sets.')?></div>
+	<div class="ccm-note"><?php    echo t('You can assign images to multiple sets.')?></div>
 
 
 	</td>
@@ -204,14 +196,14 @@ table.ccm-grid th {width: 70px}
 
 </div>
 </form>
-
+</div>
 <script type="text/javascript">
 $(function() {
-	ccm_alSetupUploadDetailsForm('<?php  echo $searchInstance?>');
+	ccm_alSetupUploadDetailsForm('<?php    echo $searchInstance?>');
 });
 </script>
 
-<?php  
+<?php    
 if (!isset($_REQUEST['reload'])) { ?>
 </div>
-<?php   }
+<?php     }

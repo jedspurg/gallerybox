@@ -1,7 +1,7 @@
-<?php   defined('C5_EXECUTE') or die("Access Denied."); ?>
+<?php     defined('C5_EXECUTE') or die("Access Denied."); ?>
 
 <div class="gbx-body">	
-	<?php  
+	<?php    
       
       switch ($this->controller->getTask()) {
 		  

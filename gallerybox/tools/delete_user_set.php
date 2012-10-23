@@ -1,4 +1,4 @@
-<?php  
+<?php    
 defined('C5_EXECUTE') or die(_("Access Denied."));
 $u = new User();
 $form = Loader::helper('form');
@@ -32,24 +32,24 @@ if ($fsp->canDeleteFileSet()) {
 
 ?>
 
-<h1><?php  echo t('Delete File Set')?></h1>
+<h1><?php    echo t('Delete File Set')?></h1>
 
-	<?php  echo t('Are you sure you want to delete the following file set?')?><br/><br/>
+	<?php    echo t('Are you sure you want to delete the following file set?')?><br/><br/>
 	
-	<strong><?php  echo $fs->getFileSetName()?></strong>
+	<strong><?php    echo $fs->getFileSetName()?></strong>
 	
 	<br/><br/>
-	<div class="ccm-note"><?php  echo t('(Note: files within the set will not be removed.)')?></div>
+	<div class="ccm-note"><?php    echo t('(Note: files within the set will not be removed.)')?></div>
 	<br/><br/>
 	
-	<form id="ccm-<?php  echo $searchInstance?>-delete-file-set-form" method="post" action="<?php  echo Loader::helper('concrete/urls')->getToolsURL('delete_user_set', 'gallerybox')?>" onsubmit="return ccm_alDeleteFileSet(this)">
-	<?php  echo $form->hidden('task', 'delete_file_set')?>
-	<?php  echo $vt->output('delete_file_set');?>
-	<?php  echo $form->hidden('fsID', $_REQUEST['fsID']); ?>	
-	<?php  echo $form->hidden('searchInstance', $_REQUEST['searchInstance']); ?>	
-	<?php   $ih = Loader::helper('concrete/interface')?>
-	<?php  echo $ih->submit(t('Delete'))?>
-	<?php  echo $ih->button_js(t('Cancel'), 'jQuery.fn.dialog.closeTop()', 'left')?>	
+	<form id="ccm-<?php    echo $searchInstance?>-delete-file-set-form" method="post" action="<?php    echo Loader::helper('concrete/urls')->getToolsURL('delete_user_set', 'gallerybox')?>" onsubmit="return ccm_alDeleteFileSet(this)">
+	<?php    echo $form->hidden('task', 'delete_file_set')?>
+	<?php    echo $vt->output('delete_file_set');?>
+	<?php    echo $form->hidden('fsID', $_REQUEST['fsID']); ?>	
+	<?php    echo $form->hidden('searchInstance', $_REQUEST['searchInstance']); ?>	
+	<?php     $ih = Loader::helper('concrete/interface')?>
+	<?php    echo $ih->submit(t('Delete'))?>
+	<?php    echo $ih->button_js(t('Cancel'), 'jQuery.fn.dialog.closeTop()', 'left')?>	
 	
 	</form>
 	

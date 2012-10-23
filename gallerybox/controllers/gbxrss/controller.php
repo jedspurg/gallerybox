@@ -1,4 +1,4 @@
-<?php defined('C5_EXECUTE') or die("Access Denied."); 
+<?php   defined('C5_EXECUTE') or die("Access Denied."); 
 
 		Loader::helper('concrete/file');
 		Loader::model('file_attributes');
@@ -17,7 +17,7 @@ header('Content-type: text/xml');
 		
 		//use object buffer to get XML for caching 
 		ob_start(); 
-		echo "<?php xml version=\"1.0\"?>\n"; 
+		echo "<?php   xml version=\"1.0\"?>\n"; 
 		?>
 		<rss version="2.0" 
     		 xmlns:media="http://search.yahoo.com/mrss/"
@@ -25,7 +25,7 @@ header('Content-type: text/xml');
          xmlns:content="http://purl.org/rss/1.0/modules/content/"
          xmlns:fh="http://purl.org/syndication/history/1.0">
 			<channel>
-      <?php if (User::getByUserID($uID)->isRegistered()){
+      <?php   if (User::getByUserID($uID)->isRegistered()){
 		  $rssui = UserInfo::getByID($uID);
 		  $av = Loader::helper('concrete/avatar');
 		  if ($rssui->getAttribute('first_name') == ''){
@@ -34,29 +34,29 @@ header('Content-type: text/xml');
 				$username = $rssui->getAttribute('first_name').' '.$rssui->getAttribute('last_name');
 			}
 	  ?>
-                <title>Gallery images from <?php echo $username?></title>
-                <link><?php echo BASE_URL.View::url('/gallerybox/user',$uID)?></link>
+                <title>Gallery images from <?php   echo $username?></title>
+                <link><?php   echo BASE_URL.View::url('/gallerybox/user',$uID)?></link>
                 <description></description>
-                <pubDate><?php echo  date("D, d M Y H:i:s T") ?></pubDate>
-                <lastBuildDate><?php echo  date("D, d M Y H:i:s T") ?></lastBuildDate>
-                <generator><?php echo BASE_URL.DIR_REL?></generator>
+                <pubDate><?php   echo  date("D, d M Y H:i:s T") ?></pubDate>
+                <lastBuildDate><?php   echo  date("D, d M Y H:i:s T") ?></lastBuildDate>
+                <generator><?php   echo BASE_URL.DIR_REL?></generator>
                 <image>
-                  <url><?php echo BASE_URL.$av->getImagePath($rssui)?></url>
-                  <title>Gallery images from <?php echo $username?></title>
-                  <link><?php echo BASE_URL.View::url('/profile',$uID)?></link>
+                  <url><?php   echo BASE_URL.$av->getImagePath($rssui)?></url>
+                  <title>Gallery images from <?php   echo $username?></title>
+                  <link><?php   echo BASE_URL.View::url('/profile',$uID)?></link>
                 </image>
               
 
-      <?php }else{?>
-      		  <title>Gallery images from <?php echo SITE?></title>
-              <link><?php echo BASE_URL.DIR_REL?></link>
+      <?php   }else{?>
+      		  <title>Gallery images from <?php   echo SITE?></title>
+              <link><?php   echo BASE_URL.DIR_REL?></link>
               <description></description>
-              <pubDate><?php echo  date("D, d M Y H:i:s T") ?></pubDate>
-              <lastBuildDate><?php echo  date("D, d M Y H:i:s T") ?></lastBuildDate>
-              <generator><?php echo BASE_URL.DIR_REL?></generator>
+              <pubDate><?php   echo  date("D, d M Y H:i:s T") ?></pubDate>
+              <lastBuildDate><?php   echo  date("D, d M Y H:i:s T") ?></lastBuildDate>
+              <generator><?php   echo BASE_URL.DIR_REL?></generator>
       
-      <?php }?>
-    <?php 
+      <?php   }?>
+    <?php   
 		$ih =Loader::helper('image');
 
 		foreach($userFiles as $img){
@@ -75,24 +75,24 @@ header('Content-type: text/xml');
 		?>
     
     		<item>
-        <title><?php echo htmlspecialchars($imgt)?></title>
-        <link><?php echo BASE_URL.View::url('/gallerybox/image',$img->getFileID())?></link>
-        <description>&lt;img src=&quot;<?php echo BASE_URL.$imgFull->src?>&quot; width=&quot;<?php echo $imgFull->width?>&quot; height=&quot;<?php echo $imgFull->height?>&quot; alt=&quot;<?php echo htmlspecialchars($imgt)?>&quot; /&gt;&lt;/a&gt;&lt;p&gt;<?php echo htmlspecialchars($imgd)?>&lt;/p&gt;</description>
-        <pubDate><?php echo  date("D, d M Y H:i:s T", strtotime($img->getDateAdded())) ?></pubDate>
-        <author>nobody@<?php echo str_replace($email_strip, '', BASE_URL)?> (<?php echo $username?>)</author>
-        <guid><?php echo BASE_URL.View::url('/gallerybox/image',$img->getFileID())?></guid>
-        <media:content url="<?php echo BASE_URL.$imgFull->src?>" 
+        <title><?php   echo htmlspecialchars($imgt)?></title>
+        <link><?php   echo BASE_URL.View::url('/gallerybox/image',$img->getFileID())?></link>
+        <description>&lt;img src=&quot;<?php   echo BASE_URL.$imgFull->src?>&quot; width=&quot;<?php   echo $imgFull->width?>&quot; height=&quot;<?php   echo $imgFull->height?>&quot; alt=&quot;<?php   echo htmlspecialchars($imgt)?>&quot; /&gt;&lt;/a&gt;&lt;p&gt;<?php   echo htmlspecialchars($imgd)?>&lt;/p&gt;</description>
+        <pubDate><?php   echo  date("D, d M Y H:i:s T", strtotime($img->getDateAdded())) ?></pubDate>
+        <author>nobody@<?php   echo str_replace($email_strip, '', BASE_URL)?> (<?php   echo $username?>)</author>
+        <guid><?php   echo BASE_URL.View::url('/gallerybox/image',$img->getFileID())?></guid>
+        <media:content url="<?php   echo BASE_URL.$imgFull->src?>" 
                      type="image/jpeg"
-                     height="<?php echo $imgFull->height?>"
-                     width="<?php echo $imgFull->width?>"/>
-        <media:title><?php echo htmlspecialchars($imgt)?></media:title>
-        <media:thumbnail url="<?php echo BASE_URL.$imgThumb->src?>" height="<?php echo $imgThumb->height?>" width="<?php echo $imgThumb->width?>" />
-        <media:credit role="photographer"><?php echo $username?></media:credit>
+                     height="<?php   echo $imgFull->height?>"
+                     width="<?php   echo $imgFull->width?>"/>
+        <media:title><?php   echo htmlspecialchars($imgt)?></media:title>
+        <media:thumbnail url="<?php   echo BASE_URL.$imgThumb->src?>" height="<?php   echo $imgThumb->height?>" width="<?php   echo $imgThumb->width?>" />
+        <media:credit role="photographer"><?php   echo $username?></media:credit>
         </item>
-     <?php }?>
+     <?php   }?>
       </channel>
     </rss>  
-<?php		
+<?php  		
 		$rssXML = ob_get_contents();
 		ob_end_clean();
 		echo $rssXML; 

@@ -177,8 +177,13 @@ div.gbx-menu ul li a, div.gbx-menu ul li{line-height:18px !important;}
 div.gbx-menu a:hover{background:none !important;background-color:#ddd !important;}
 .ccm-file-set-add-cb label{float:none !important}
 .gbx-modal div#ccm-search-advanced-sets{width:300px !important}
-.ccm-file-search-advanced-sets-results li{margin:3px!important;}
+ul.ccm-file-search-advanced-sets-results{list-style:none !important;}
+.ccm-file-search-advanced-sets-results li{margin:3px!important;list-style:none !important;display:block !important; clear:both;}
+div#ccm-search-advanced-sets{overflow:auto !important}
 .btn-pad{margin:0px 0px 12px 0px !important;}
+
+	        
+
 
 
 

@@ -1,4 +1,4 @@
-<?php  
+<?php    
 defined('C5_EXECUTE') or die("Access Denied.");
 
 		Loader::helper('concrete/file');
@@ -28,15 +28,13 @@ class GalleryboxController extends Controller {
 		$html = Loader::helper('html');
 		$this->addHeaderItem($html->css('gallerybox.css', 'gallerybox'));
 
-		$this->addHeaderItem($html->javascript('jquery.js'));
-		$this->addHeaderItem($html->javascript('imgareaselect.js', 'gallerybox'));
-		$this->addHeaderItem($html->javascript('imgnotes.js', 'gallerybox'));
-		$this->addHeaderItem($html->javascript('scrollable.js', 'gallerybox'));
-		$this->addHeaderItem($html->javascript('scrollable.navigator.js', 'gallerybox'));
-		$this->addHeaderItem($html->javascript('fancyzoom.js','gallerybox'));
-		$this->addHeaderItem($html->javascript('modal.js','gallerybox'));
-		$this->addHeaderItem($html->javascript('twipsy.js','gallerybox'));
-		$this->addHeaderItem($html->javascript('popover.js','gallerybox'));
+
+		$this->addFooterItem($html->javascript('imgareaselect.js', 'gallerybox'));
+		$this->addFooterItem($html->javascript('imgnotes.js', 'gallerybox'));
+		$this->addFooterItem($html->javascript('fancyzoom.js','gallerybox'));
+		$this->addFooterItem($html->javascript('modal.js','gallerybox'));
+		$this->addFooterItem($html->javascript('twipsy.js','gallerybox'));
+		$this->addFooterItem($html->javascript('popover.js','gallerybox'));
 		
 	}
 	
@@ -96,7 +94,7 @@ class GalleryboxController extends Controller {
 			if (strlen($imgt) > 24){
 				$title .= '...';
 			}
-			$mainGalleryList .='<div class="gbx-gallery-item"><div class="gbximgwrapper"><a href="'.View::url('/gallerybox/image',$img->getFileID()).'" rel="popover" data-placement="below" data-content="by '.$username.': '.htmlspecialchars(str_replace('"',"'",$imgd)).'" title="'.$title.'">';
+			$mainGalleryList .='<div class="gbx-gallery-item"><div class="gbximgwrapper"><a href="'.View::url('/gallerybox/image',$img->getFileID()).'" rel="overpop" data-placement="below" data-content="by '.$username.': '.htmlspecialchars(str_replace('"',"'",$imgd)).'" title="'.$title.'">';
 			$mainGalleryList .= '<div><img src="'.$imgThumb->src.'" width="'.$imgThumb->width.'" height="'.$imgThumb->height.'" title="'.str_replace('"',"'",$imgt).'" style="margin-top:'.intval($topOffset).'px;margin-left:'.intval($leftOffset).'px"/></div></a></div></div>';
 				
 		}
@@ -198,7 +196,7 @@ public function tag($tag=''){
 			}else{
 				$username = $imgui->getAttribute('first_name').' '.$imgui->getAttribute('last_name');
 			}
-			$mainGalleryList .='<div class="gbx-gallery-item"><div class="gbximgwrapper"><a href="'.View::url('/gallerybox/image',$img->getFileID()).'" rel="twipsy" title="'.$username.': '.htmlspecialchars($imgt).'">';
+			$mainGalleryList .='<div class="gbx-gallery-item"><div class="gbximgwrapper"><a href="'.View::url('/gallerybox/image',$img->getFileID()).'" rel="poptool" title="'.$username.': '.htmlspecialchars($imgt).'">';
 			$mainGalleryList .= '<div><img src="'.$imgThumb->src.'" width="'.$imgThumb->width.'" height="'.$imgThumb->height.'" title="'.str_replace('"',"'",$imgt).'" style="margin-top:'.intval($topOffset).'px;margin-left:'.intval($leftOffset).'px"/></div></a></div></div>';
 				
 		}
@@ -272,13 +270,13 @@ public function tag($tag=''){
 			
 				if($i==1){
         $setDisplay .='<div class="user-set-cover">';
-        $setDisplay .='<div><a rel="popover" data-placement="right" data-content="'.htmlspecialchars(str_replace('"',"'",$imgd)).'" title="'.str_replace('"',"'",$title).'" href="'.View::url('/gallerybox/image',$img->getFileID()).'"><div><img src="'.$imgCover->src.'" style="margin-top:'.intval($topCoverOffset).'px;margin-left:'.intval($leftCoverOffset).'px"/></div></a>';
+        $setDisplay .='<div><a rel="overpop" data-placement="right" data-content="'.htmlspecialchars(str_replace('"',"'",$imgd)).'" title="'.str_replace('"',"'",$title).'" href="'.View::url('/gallerybox/image',$img->getFileID()).'"><div><img src="'.$imgCover->src.'" style="margin-top:'.intval($topCoverOffset).'px;margin-left:'.intval($leftCoverOffset).'px"/></div></a>';
         $setDisplay .='</div>';
 					
         $setDisplay .='<div class="user-set-gall">';
 				}else{
         
-        $setDisplay .='<div><a rel="popover" data-placement="below" data-content="'.htmlspecialchars(str_replace('"',"'",$imgd)).'" title="'.str_replace('"',"'",$title).'" href="'.View::url('/gallerybox/image',$img->getFileID()).'"><div><img src="'.$imgThumb->src.'" style="margin-top:'.intval($topOffset).'px;margin-left:'.intval($leftOffset).'>px"/></div></a></div>';  
+        $setDisplay .='<div><a rel="overpop" data-placement="below" data-content="'.htmlspecialchars(str_replace('"',"'",$imgd)).'" title="'.str_replace('"',"'",$title).'" href="'.View::url('/gallerybox/image',$img->getFileID()).'"><div><img src="'.$imgThumb->src.'" style="margin-top:'.intval($topOffset).'px;margin-left:'.intval($leftOffset).'>px"/></div></a></div>';  
 					
 				 }
 			
@@ -319,6 +317,7 @@ public function user($uID=NULL){
 		$userList->getPagination();
 		
 		$ih =Loader::helper('image');
+		$wm = Loader::helper('watermark','gallerybox');
 		$userFilesDisplay = '';
 		$i=1;
 		foreach($userFiles as $img){
@@ -349,7 +348,14 @@ public function user($uID=NULL){
 			}
 			$userFilesDisplay .='</h4></a>';
 			$userFilesDisplay .= '<div class="gbximgwrapper"><a href="'.View::url('/gallerybox/image',$img->getFileID()).'">';
-			$userFilesDisplay .= '<div><img src="'.$imgThumb->src.'" width="'.$imgThumb->width.'" height="'.$imgThumb->height.'" title="'.str_replace('"',"'",$imgt).'" style="margin-top:'.intval($topOffset).'px;margin-left:'.intval($leftOffset).'px"/></div></a></div>';
+			
+			if(Config::get('GBX_WATERMARK')	 > 0){
+					$userFilesDisplay .= '<div><img src="'.$wm->watermark($imgThumb->src).'" width="'.$imgThumb->width.'" height="'.$imgThumb->height.'" title="'.str_replace('"',"'",$imgt).'" style="margin-top:'.intval($topOffset).'px;margin-left:'.intval($leftOffset).'px"/></div></a></div>';
+				}else{
+					$userFilesDisplay .= '<div><img src="'.$imgThumb->src.'" width="'.$imgThumb->width.'" height="'.$imgThumb->height.'" title="'.str_replace('"',"'",$imgt).'" style="margin-top:'.intval($topOffset).'px;margin-left:'.intval($leftOffset).'px"/></div></a></div>';
+				}
+			
+			
 			$userFilesDisplay .= '<div class="clearfix"></div>';
 
 			
@@ -436,7 +442,7 @@ public function user($uID=NULL){
 			}else{
 				$username = $imgui->getAttribute('first_name').' '.$imgui->getAttribute('last_name');
 			}
-			$mainGalleryList .='<div class="gbx-gallery-item"><div class="gbximgwrapper"><a href="'.View::url('/gallerybox/image',$img->getFileID()).'" rel="twipsy" title="'.$username.': '.htmlspecialchars($imgt).'">';
+			$mainGalleryList .='<div class="gbx-gallery-item"><div class="gbximgwrapper"><a href="'.View::url('/gallerybox/image',$img->getFileID()).'" rel="poptool" title="'.$username.': '.htmlspecialchars($imgt).'">';
 			$mainGalleryList .= '<div><img src="'.$imgThumb->src.'" width="'.$imgThumb->width.'" height="'.$imgThumb->height.'" title="'.str_replace('"',"'",$imgt).'" style="margin-top:'.intval($topOffset).'px;margin-left:'.intval($leftOffset).'px"/></div></a></div></div>';
 				
 		}
@@ -503,9 +509,11 @@ public function user($uID=NULL){
 	public function getUserImage($fID){
 		
 		$ih =Loader::helper('image');
+		$wm = Loader::helper('watermark','gallerybox');
       	$f = File::getByID($fID); 
 		$fv = $f->getApprovedVersion();
 		$imgt = $fv->getTitle();
+		$fullpath = $fv->getPath();
 		$imgd= $fv->getDescription();
 		$zoomimage = $ih->getThumbnail($f,Config::get(GBX_MAX_ZOOM_WIDTH),Config::get(GBX_MAX_ZOOM_HEIGHT));
 		
@@ -528,13 +536,25 @@ public function user($uID=NULL){
 		}
 
 
-		$imgThumb = $ih->getThumbnail($f,$imgMax,$imgMax);	
-		$gbxImg = '<img id="gbxImg"  src="'.$imgThumb->src.'" width="'.$imgThumb->width.'" height="'.$imgThumb->height.'" />';
+		$imgThumb = $ih->getThumbnail($f,$imgMax,$imgMax);
+		
+		if(Config::get('GBX_WATERMARK')	 > 0){
+			$gbxImg = '<img id="gbxImg"  src="'.$wm->watermark($imgThumb->src).'" width="'.$imgThumb->width.'" height="'.$imgThumb->height.'" />';
+		}else{
+			$gbxImg = '<img id="gbxImg"  src="'.$imgThumb->src.'" width="'.$imgThumb->width.'" height="'.$imgThumb->height.'" />';
+		}
+		
+		
 		$gbxImg .= '<h3>'.$imgt.'</h3>';
 		$gbxImg .= '<p>'.nl2br($imgd).'</p>';
 		
 		$gbxImg .='<div id="zoomImage">';
-		$gbxImg .='<img src="'.$zoomimage->src.'" alt="'.$imgt.'" width="'.$zoomimage->width.'" height="'.$zoomimage->height.'"/>';
+		if(Config::get('GBX_WATERMARK')	 > 0){
+			$gbxImg .='<img src="'.$wm->watermark($zoomimage->src).'" alt="'.$imgt.'" width="'.$zoomimage->width.'" height="'.$zoomimage->height.'"/>';
+		}else{
+			$gbxImg .='<img src="'.$zoomimage->src.'" alt="'.$imgt.'" width="'.$zoomimage->width.'" height="'.$zoomimage->height.'"/>';
+		}
+		
 		$gbxImg .='<p id="zoomImage_caption">'.$imgt.'</p>';
 		$gbxImg .='</div>';
 		
@@ -852,5 +872,8 @@ public function user($uID=NULL){
 			$db->query("REPLACE INTO GalleryBoxFavs (uID, fID) VALUES (?,?)",array($uID, $fID));
 		}
 	}
+	
+	
+
 	
 }

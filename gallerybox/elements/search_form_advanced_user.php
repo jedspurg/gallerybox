@@ -1,5 +1,5 @@
-<?php   defined('C5_EXECUTE') or die("Access Denied."); ?> 
-<?php  
+<?php     defined('C5_EXECUTE') or die("Access Denied."); ?> 
+<?php    
 Loader::model('file_set');
 
 $searchFields = array(
@@ -40,28 +40,28 @@ foreach($t1 as $value) {
 
 ?>
 
-<?php   
+<?php     
 	$form = Loader::helper('form');
 	$ust = Loader::helper('concrete/urls')->getToolsURL('search_results_user', 'gallerybox');
 ?>
 
-	<form method="get" id="ccm-<?php  echo $searchInstance?>-advanced-search" action="<?php  echo $ust?>">
+	<form method="get" id="ccm-<?php    echo $searchInstance?>-advanced-search" action="<?php    echo $ust?>">
 
 
-<input type="hidden" name="searchInstance" value="<?php  echo $searchInstance?>" />
+<input type="hidden" name="searchInstance" value="<?php    echo $searchInstance?>" />
 	
-<div id="ccm-<?php  echo $searchInstance?>-search-advanced-fields" class="ccm-search-advanced-fields pull-left" >
+<div id="ccm-<?php    echo $searchInstance?>-search-advanced-fields" class="ccm-search-advanced-fields pull-left" >
 
 		<input type="hidden" name="submit_search" value="1" />
-	<?php  	
+	<?php    	
 		print $form->hidden('ccm_order_dir', $searchRequest['ccm_order_dir']); 
 		print $form->hidden('ccm_order_by', $searchRequest['ccm_order_by']); 
 		print $form->hidden('fileSelector', $fileSelector); 
 	?>	
 		<div id="ccm-search-box-title">
-			<img src="<?php  echo ASSETS_URL_IMAGES?>/throbber_white_16.gif" width="16" height="16" class="ccm-search-loading" id="ccm-<?php  echo $searchInstance?>-search-loading" />
+			<img src="<?php    echo ASSETS_URL_IMAGES?>/throbber_white_16.gif" width="16" height="16" class="ccm-search-loading" id="ccm-<?php    echo $searchInstance?>-search-loading" />
 			
-			<h5><?php  echo t('Search')?></h5>			
+			<h5><?php    echo t('Search')?></h5>			
 		</div>
 		
 		<div id="ccm-search-advanced-fields-inner">
@@ -69,7 +69,7 @@ foreach($t1 as $value) {
 				<table border="0" cellspacing="0" cellpadding="0">
 				<tr>
 					<td width="100%">
-					<?php  echo $form->text('fKeywords', $searchRequest['fKeywords'], array('style' => 'width:200px')); ?>
+					<?php    echo $form->text('fKeywords', $searchRequest['fKeywords'], array('style' => 'width:200px')); ?>
 					</td>
 				</tr>
 				</table>
@@ -78,9 +78,9 @@ foreach($t1 as $value) {
 			<div class="ccm-search-field">
 				<table border="0" cellspacing="0" cellpadding="0" width="100%">
 				<tr>
-					<td style="white-space: nowrap" align="right"><div style="width: 85px; padding-right:5px"><?php  echo t('Results Per Page')?></div></td>
-					<td width="100%">
-						<?php  echo $form->select('numResults', array(
+					<td style="white-space: nowrap; width:70%;text-align:left" ><div style="width: 85px; padding-right:5px"><?php    echo t('Results Per Page')?></div></td>
+					<td style="width:30%">
+						<?php    echo $form->select('numResults', array(
 							'10' => '10',
 							'25' => '25',
 							'50' => '50',
@@ -98,14 +98,14 @@ foreach($t1 as $value) {
 			
 			<div id="ccm-search-fields-submit">
 				
-				<?php  echo $form->submit('ccm-search-files', 'Search', array('class'=>'btn'))?>
+				<?php    echo $form->submit('ccm-search-files', 'Search', array('class'=>'btn'))?>
 			</div>
 		</div>
 	
 </div>
 
-<div id="ccm-<?php  echo $searchInstance?>-sets-search-wrapper" class="pull-right">
-	<?php  Loader::packageElement('search_form_sets_user', 'gallerybox', array('searchInstance' => $searchInstance, 'searchRequest' => $searchRequest)) ?>
+<div id="ccm-<?php    echo $searchInstance?>-sets-search-wrapper" class="pull-right">
+	<?php    Loader::packageElement('search_form_sets_user', 'gallerybox', array('searchInstance' => $searchInstance, 'searchRequest' => $searchRequest)) ?>
 
 </div>
 

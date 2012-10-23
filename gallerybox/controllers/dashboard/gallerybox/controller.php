@@ -1,7 +1,7 @@
-<?php 
+<?php   
 defined('C5_EXECUTE') or die("Access Denied.");
 
-class DashboardGalleryboxController extends Controller {
+class DashboardGalleryboxController extends DashboardBaseController {
 
 
 	public function __construct() { 

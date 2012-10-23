@@ -11,7 +11,7 @@
 .gbx-body sub,.gbx-body sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline;}
 .gbx-body sup{top:-0.5em;}
 .gbx-body sub{bottom:-0.25em;}
-.gbx-body img{border:0;-ms-interpolation-mode:bicubic;}
+.gbx-body img{border:0;-ms-interpolation-mode:bicubic;max-width:1000%}
 .gbx-body button,.gbx-body input,.gbx-body select,.gbx-body textarea,.modal input{font-size:100%;margin:0;vertical-align:baseline;*vertical-align:middle;}
 .gbx-body button,.gbx-body input,.modal input{line-height:normal;*overflow:visible;}
 .gbx-body button::-moz-focus-inner,.gbx-body input::-moz-focus-inner{border:0;padding:0;}
@@ -306,7 +306,7 @@
 .gbx-body .label.success{background-color:#46a546;}
 .gbx-body .label.notice{background-color:#62cffc;}
 
-.gbx-body{background-color:#ffffff;margin:0;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:13px;font-weight:normal;line-height:18px;color:#404040;}
+.gbx-body{background-color:transparent;margin:0;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:13px;font-weight:normal;line-height:18px;color:#404040;}
 
 .gbx-body #gbx-content-pane{float:left;}
 .gbx-body #gbx-main-gallery{padding:12px;width:100%;float:left; font-size:12px;}

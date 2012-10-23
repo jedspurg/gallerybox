@@ -1,7 +1,7 @@
-<?php  
+<?php    
 defined('C5_EXECUTE') or die("Access Denied.");
 
-class DashboardGalleryboxSettingsController extends Controller { 
+class DashboardGalleryboxSettingsController extends DashboardBaseController { 
 
 	
 
@@ -16,6 +16,8 @@ class DashboardGalleryboxSettingsController extends Controller {
 		$this->set('gbx_allow_download',Config::get('GBX_ALLOW_DOWNLOAD'));
 		$this->set('gbx_allow_comments',Config::get('GBX_ALLOW_COMMENTS'));
 		$this->set('gbx_allow_rss',Config::get('GBX_ALLOW_RSS'));
+		$this->set('gbx_watermark',Config::get('GBX_WATERMARK'));
+		$this->set('gbx_watermark_img',File::getByID(intval(Config::get('GBX_WATERMARK_IMG'))));
 	
 	}
 	
@@ -36,6 +38,8 @@ class DashboardGalleryboxSettingsController extends Controller {
 		Config::save('GBX_ALLOW_DOWNLOAD', $this->post('gbx_allow_download'));
 		Config::save('GBX_ALLOW_COMMENTS', $this->post('gbx_allow_comments'));
 		Config::save('GBX_ALLOW_RSS', $this->post('gbx_allow_rss'));
+		Config::save('GBX_WATERMARK', $this->post('gbx_watermark'));
+		Config::save('GBX_WATERMARK_IMG', $this->post('gbx_watermark_img'));
 		
 		$this->set('message', t('Settings saved.'));
 		$this->view();

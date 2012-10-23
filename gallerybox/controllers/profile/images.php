@@ -1,4 +1,4 @@
-<?php  
+<?php    
 defined('C5_EXECUTE') or die("Access Denied.");
 Loader::model('file_list');
 Loader::model('file_set');
@@ -36,31 +36,29 @@ public function view($userID = 0) {
 
 
 		
-		$this->addHeaderItem('<script type="text/javascript" src="' . REL_DIR_FILES_TOOLS_REQUIRED . '/i18n_js"></script>'); 
-		$this->addHeaderItem($html->javascript('jquery.js'));
-		$this->addHeaderItem($html->javascript('jquery.form.js'));
-		$this->addHeaderItem($html->javascript('ccm.ui.js'));
-		$this->addHeaderItem($html->javascript('quicksilver.js'));
-		$this->addHeaderItem($html->javascript('jquery.liveupdate.js'));
-		$this->addHeaderItem($html->javascript('jquery.metadata.js'));
-		$this->addHeaderItem($html->javascript('jquery.ui.js'));
-		$this->addHeaderItem($html->javascript('ccm.search.js'));
-		$this->addHeaderItem($html->javascript('user.filemanager.js', 'gallerybox'));
-		$this->addHeaderItem($html->javascript('ccm.themes.js'));
-		
-		$this->addHeaderItem($html->javascript('jquery.rating.js'));
-		$this->addHeaderItem($html->javascript('ccm.dialog.js'));
-		
-		$this->addHeaderItem('<script type="text/javascript">$(function() { ccm_activateFileManager(\'DASHBOARD\', \'' . $searchInstance . '\'); });</script>');
-		
-$this->addHeaderItem('<script type="text/javascript">var GBX_SET_TOOL = "'.Loader::helper('concrete/urls')->getToolsURL('user_add_to', 'gallerybox').'";var GBX_COMPLETED_TOOL = "'.Loader::helper('concrete/urls')->getToolsURL('add_to_complete', 'gallerybox').'";var GBX_SET_RELOAD = "'.Loader::helper('concrete/urls')->getToolsURL('search_user_sets_reload', 'gallerybox').'";
-</script>');
-		
-
+		$this->addFooterItem('<script type="text/javascript" src="' . REL_DIR_FILES_TOOLS_REQUIRED . '/i18n_js"></script>'); 
+	
+		$this->addFooterItem($html->javascript('jquery.ui.js'));
+		$this->addFooterItem($html->javascript('jquery.form.js'));
+		$this->addFooterItem($html->javascript('jquery.rating.js'));
+		$this->addFooterItem($html->javascript('ccm.app.js'));
+	
 		global $c;
 		$cID = $c->getCollectionID();
 
-		$this->addHeaderItem('<script type="text/javascript" src="' . REL_DIR_FILES_TOOLS_REQUIRED . '/page_controls_menu_js?cID=' . $cID . '&amp;cvID=' . $cvID . '&amp;btask=' . $_REQUEST['btask'] . '&amp;ts=' . time() . '"></script>'); 
+		$this->addFooterItem('<script type="text/javascript" src="' . REL_DIR_FILES_TOOLS_REQUIRED . '/page_controls_menu_js?cID=' . $cID . '&amp;cvID=' . $cvID . '&amp;btask=' . $_REQUEST['btask'] . '&amp;ts=' . time() . '"></script>'); 
+
+
+	
+		$this->addFooterItem($html->javascript('user.filemanager.js', 'gallerybox'));
+	
+		
+		$this->addFooterItem('<script type="text/javascript">$(function() { ccm_activateFileManager(\'DASHBOARD\', \'' . $searchInstance . '\'); });</script>');
+		
+$this->addFooterItem('<script type="text/javascript">var GBX_SET_TOOL = "'.Loader::helper('concrete/urls')->getToolsURL('user_add_to', 'gallerybox').'";var GBX_COMPLETED_TOOL = "'.Loader::helper('concrete/urls')->getToolsURL('add_to_complete', 'gallerybox').'";var GBX_SET_RELOAD = "'.Loader::helper('concrete/urls')->getToolsURL('search_user_sets_reload', 'gallerybox').'";
+</script>');
+		
+
 
 
 		$canEdit = false;

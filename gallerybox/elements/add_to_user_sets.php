@@ -1,6 +1,7 @@
-<?php   defined('C5_EXECUTE') or die("Access Denied."); ?> 
-<?php   $form = Loader::helper('form'); ?>
-<?php 
+<?php     defined('C5_EXECUTE') or die("Access Denied."); ?> 
+<div class="ccm-ui">
+<?php     $form = Loader::helper('form'); ?>
+<?php   
 // ***** LERTECO_WALL
 $posting_type = array('gallerybox', 'set_added', 'SetAdded', 'created a new gallery set: %1$s', 1, 2);
 
@@ -137,48 +138,36 @@ if ($_POST['task'] == 'add_to_sets') {
 
 <script type="text/javascript">
 $(function() {
-	ccm_alSetupSetsForm('<?php  echo $searchInstance?>');
+	ccm_alSetupSetsForm('<?php    echo $searchInstance?>');
 });
 </script>
 
 
-<?php  
+<?php    
 	$gbat = Loader::helper('concrete/urls')->getToolsURL('user_add_to', 'gallerybox');
 	if (!$disableForm) { ?>
-	<form method="post" id="ccm-<?php  echo $searchInstance?>-add-to-set-form" action="<?php  echo $gbat?>">
-	<?php  echo $form->hidden('task', 'add_to_sets')?>
-	<?php   foreach($files as $f) { ?>
-		<input type="hidden" name="fID[]" value="<?php  echo $f->getFileID();?>" />
-	<?php   } ?>
+	<form method="post" id="ccm-<?php    echo $searchInstance?>-add-to-set-form" action="<?php    echo $gbat?>">
+	<?php    echo $form->hidden('task', 'add_to_sets')?>
+	<?php     foreach($files as $f) { ?>
+		<input type="hidden" name="fID[]" value="<?php    echo $f->getFileID();?>" />
+	<?php     } ?>
 
-<?php   } ?>
-
-	<div style="margin-top: 12px">
-	<table border="0" cellspacing="0" cellpadding="0" id="ccm-file-search-advanced-sets-header">
-	<tr>
-		<?php   if (!$disableTitle) { ?>
-		<td width="100%"><h1><?php  echo t('Set')?></h1></td>
-		<?php   } ?>
-		<td>
-		
-		
-		<div class="ccm-file-sets-search-wrapper-input">
-			<?php  echo $form->text('fsAddToSearchName', $searchRequest['fsSearchName'], array('autocomplete' => 'off'))?>
+<?php     } ?>
+	
+	<div class="clear"></div>
+	<div class="ccm-search-bar">
+			<?php    echo $form->text('fsAddToSearchName', $searchRequest['fsSearchName'], array('autocomplete' => 'off'))?>
 		</div>
-		
-		</td>
-	</tr>
-	</table>
-	</div>
+
 
 	
-	<?php   $s1 = $cnt->getUserSets(); ?>
-	<?php   if (count($s1) > 1) { ?>
-	<div class="ccm-file-search-advanced-sets-results">
-		<ul id="ccm-file-search-add-to-sets-list">
+	<?php     $s1 = $cnt->getUserSets(); ?>
+	<?php     if (count($s1) > 1) { ?>
+<div class="clearfix">
+		<ul class="inputs-list">
 	
 	
-	<?php   foreach($sets as $s) { 
+	<?php     foreach($sets as $s) { 
 		$displaySet = true;
 		
 		$pf = new Permissions($s);
@@ -195,35 +184,36 @@ $(function() {
 		if ($displaySet && $s->getFileSetName() != 'user_gallery_'.$u->getUserID() && $s->getFileSetName() != 'GalleryBoxCollection') {
 		?>
 	
-		<li class="ccm-file-set-add-cb" style="padding-left: 0px">
-			<?php  echo checkbox('fsID', $s->getFileSetID(), $s->state)?> <label><?php  echo $s->getFileSetName()?></label>
+		<li class="ccm-file-set-add-cb" ><label>
+			<?php   echo checkbox('fsID', $s->getFileSetID(), $s->state)?> <span><?php   echo $s->getFileSetName()?></span>
+		</label>
 		</li>
-	<?php   } 
+	<?php     } 
 	} ?>
 	
 		</ul>
 	</div>
-	<?php   } else { ?>
-		<?php  echo t('You have not created any image sets yet.')?>
-	<?php   } ?>
+	<?php     } else { ?>
+		<?php    echo t('You have not created any image sets yet.')?>
+	<?php     } ?>
 
-<?php   if (count($extensions) > 1) { ?>
+<?php     if (count($extensions) > 1) { ?>
 
-	<br/><div class="ccm-note"><?php  echo t('If a file set does not appear above, you either have no access to add files to it, or it does not accept the file types %s.', implode(', ', $extensions));?></div>
+	<div class="alert-message info"><p><?php   echo t('If a file set does not appear above, you either have no access to add files to it, or it does not accept the file types %s.', implode(', ', $extensions));?></p></div>
 	
 	
-<?php   } ?>
-<br/>
-<hr />
+<?php     } ?>
 
-<h2><?php  echo t('Add to New Set')?></h2>
 
-<?php  echo $form->checkbox('fsNew', 1)?> <?php  echo $form->text('fsNewText', array('style' => 'width: 120px', 'onclick' => '$(\'input[name=fsNew]\').attr(\'checked\',true)'))?> <?php  echo $form->checkbox('fsNewShare', 1, true)?> <?php  echo t('Make set public')?>
+<h3><?php    echo t('Add to New Set')?></h3>
 
-<?php   if (!$disableForm) { ?>
+<?php    echo $form->checkbox('fsNew', 1)?> <?php    echo $form->text('fsNewText', array('style' => 'width: 120px', 'onclick' => '$(\'input[name=fsNew]\').attr(\'checked\',true)'))?> 
+<?php    echo $form->hidden('fsNewShare', 1)?> 
+
+<?php     if (!$disableForm) { ?>
 
 	<br/><br/>
-	<?php  
+	<?php    
 	$h = Loader::helper('concrete/interface');
 	
 
@@ -232,4 +222,5 @@ $(function() {
     <input type="submit" value="Update" onClick="javascript:window.setTimeout('location.reload(true)', 100);" class="btn primary" />
 	</form>
 	
-<?php   } ?>
+<?php     } ?>
+</div>
