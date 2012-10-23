@@ -6,7 +6,7 @@ class GalleryboxPackage extends Package {
 
 	protected $pkgHandle = 'gallerybox';
 	protected $appVersionRequired = '5.4.1.1';
-	protected $pkgVersion = '1.5.1';
+	protected $pkgVersion = '1.5.1.1';
 	
 	public function getPackageDescription() {
 		return t('Adds a user gallery to your website.');
