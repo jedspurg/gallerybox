@@ -222,9 +222,9 @@ class GalleryboxPackage extends Package {
 		}
 		
 		//Set User permission to allow administering of their own files
-		$gfs = FileSet::getGlobal();
-		$usergroup = Group::getByID(2);
-		$gfs->setPermissions($usergroup, 10, 10, 3, 3, 3, $extensions);
+		//$gfs = FileSet::getGlobal();
+		//$usergroup = Group::getByID(2);
+		//$gfs->setPermissions($usergroup, 10, 10, 3, 3, 3, $extensions);
 		
 		Config::save('ENABLE_USER_PROFILES', true);
 			
@@ -235,9 +235,9 @@ class GalleryboxPackage extends Package {
 	
 	public function uninstall(){
 			
-		$db= Loader::db();
-		$db->Execute("DROP TABLE btGalleryboxRecent");
-		$db->Execute("DROP TABLE btGalleryboxFavorites");
+		//$db= Loader::db();
+		//$db->Execute("DROP TABLE btGalleryboxRecent");
+		//$db->Execute("DROP TABLE btGalleryboxFavorites");
 		
 		parent::uninstall();
 	}
