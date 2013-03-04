@@ -518,6 +518,9 @@ public function user($uID=NULL){
 		$zoomimage = $ih->getThumbnail($f,Config::get(GBX_MAX_ZOOM_WIDTH),Config::get(GBX_MAX_ZOOM_HEIGHT));
 		
 		switch(Config::get(GBX_GALLERY_INNER_CLASS)){
+			case '9':
+			$imgMax='520';
+			break;
 			case '10':
 			$imgMax='580';
 			break;
