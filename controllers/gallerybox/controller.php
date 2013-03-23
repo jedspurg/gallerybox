@@ -289,7 +289,7 @@ public function tag($tag=''){
 	
 	}
 	
-public function user($uID=NULL){
+	public function user($uID=NULL){
 		if($uID==NULL){
 			$this->redirect('/gallerybox/');		
 		}
@@ -314,8 +314,10 @@ public function user($uID=NULL){
 		
 		$userList->setItemsPerPage(12);
 		$userFiles = $userList->getPage();
+		if(count($userFiles) == 0){
+			$this->redirect('/gallerybox/');		
+		}
 		$userList->getPagination();
-		
 		$ih =Loader::helper('image');
 		$wm = Loader::helper('watermark','gallerybox');
 		$userFilesDisplay = '';
@@ -518,6 +520,9 @@ public function user($uID=NULL){
 		$zoomimage = $ih->getThumbnail($f,Config::get(GBX_MAX_ZOOM_WIDTH),Config::get(GBX_MAX_ZOOM_HEIGHT));
 		
 		switch(Config::get(GBX_GALLERY_INNER_CLASS)){
+			case '8':
+			$imgMax='460';
+			break;
 			case '9':
 			$imgMax='520';
 			break;
