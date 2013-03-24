@@ -83,7 +83,7 @@ class GalleryboxController extends Controller {
 			$topOffset = (112 - $imgH)/2;
 			$leftOffset = (112 - $imgW)/2;
 			
-			$imgui = UserInfo::getByID($img->getUserID());
+			$imgui = UserInfo::getByID($img->getUserID() || 1);
 			if ($imgui->getAttribute('first_name') == ''){
 				$username =  $imgui->getUserName();
 			}else{

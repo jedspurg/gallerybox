@@ -40,7 +40,7 @@
 
         <?php    
             $f = File::getByID($imgID);
-            $fui = UserInfo::getByID($f->getUserID());
+            $fui = UserInfo::getByID($f->getUserID() || 1);
 		?>
         <?php   
         if ($fui->getAttribute('first_name') == ''){
@@ -172,7 +172,7 @@
 					$comments = $this->controller->getComments($imgID);
 					$date = Loader::helper('date');
 					 for($i = 0;$i < count($comments);$i++){
-						$comui = UserInfo::getByID($comments[$i]['uID']);?>
+						$comui = UserInfo::getByID($comments[$i]['uID'] || 1);?>
                         
 						
                         <div class="row gbx-comment">
