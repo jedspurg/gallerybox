@@ -54,8 +54,8 @@
             <?php   echo $av->outputUserAvatar($fui,false,0.65)?>
             
            
-            <a href="<?php    echo View::url('/profile',$fui->getUserID())?>" class="btn small pull-right u-button"><strong><?php   echo t('Profile')?></strong><span class="icon user"></span></a>
-            <a href="<?php    echo View::url('/gallerybox/user',$fui->getUserID())?>" class="btn small pull-right u-button"><strong><?php   echo t('Gallery')?></strong><span class="icon book"></span></a>
+            <a href="<?php    echo $this->url('/profile',$fui->getUserID())?>" class="btn small pull-right u-button"><strong><?php   echo t('Profile')?></strong><span class="icon user"></span></a>
+            <a href="<?php    echo $this->url('/gallerybox/user',$fui->getUserID())?>" class="btn small pull-right u-button"><strong><?php   echo t('Gallery')?></strong><span class="icon book"></span></a>
             </div>
             <?php   if($editor){?>
             <a href="<?php    echo $this->url('/profile/images?fKeywords='.$f->getFileName())?>" id="edit" class="btn primary editor"><strong><?php   echo t('Edit image')?></strong><span class="icon pen"></span></a>
