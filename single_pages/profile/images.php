@@ -154,7 +154,7 @@ $(function() {
 });
 </script>
 
-<div class="gbx-modal">
+<div class="gbx-modal ccm-ui">
     <div class="modal-header">
       
       <h4><?php    echo t('Upload Images')?></h4>
