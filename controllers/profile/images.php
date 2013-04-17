@@ -41,6 +41,7 @@ public function view($userID = 0) {
 		$this->addFooterItem($html->javascript('jquery.ui.js'));
 		$this->addFooterItem($html->javascript('jquery.form.js'));
 		$this->addFooterItem($html->javascript('jquery.rating.js'));
+		$this->addFooterItem($html->javascript('bootstrap.js'));
 		$this->addFooterItem($html->javascript('ccm.app.js'));
 	
 		global $c;
