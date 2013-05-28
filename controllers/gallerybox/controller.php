@@ -1,24 +1,16 @@
 <?php    
 defined('C5_EXECUTE') or die("Access Denied.");
 
-		Loader::helper('concrete/file');
-		Loader::model('file_attributes');
-		Loader::library('file/types');
-		Loader::model('file_list');
-		Loader::model('file_set');
-		Loader::model('users_friends');
-		
+	Loader::helper('concrete/file');
+	Loader::model('file_attributes');
+	Loader::library('file/types');
+	Loader::model('file_list');
+	Loader::model('file_set');
+	Loader::model('users_friends');	
 		
 class GalleryboxController extends Controller { 
 	
-	
-
 	// ***** LERTECO_WALL
-	// we configure the posting type data up here because it'll never change
-	// the array should have the same arguments as the PostingType->LoadOrUpdateOrRegister() function
-	// LoadOrUpdateOrRegister($pkg, $type, $name, $post_template, $post_template_example_arr, $share_with)
-	// share_with is a constant, but I've hardcoded it here so that we don't need any includes
-	// const SHAREWITH_FRIENDS = 1; const SHAREWITH_ALL = 2;
 	protected $posting_type_note = array('gallerybox', 'note_added', 'NoteAdded', 'wrote a note on %1$s', 1, 2);
 	protected $posting_type_comment = array('gallerybox', 'comment_added', 'CommentAdded', 'left a comment on %1$s', 1, 2);
 	protected $posting_type_fav = array('gallerybox', 'faved', 'Faved', 'marked the image %1$s as a favorite', 1, 2);
@@ -27,7 +19,6 @@ class GalleryboxController extends Controller {
 		$this->error = Loader::helper('validation/error');
 		$html = Loader::helper('html');
 		$this->addHeaderItem($html->css('gallerybox.css', 'gallerybox'));
-
 
 		$this->addFooterItem($html->javascript('imgareaselect.js', 'gallerybox'));
 		$this->addFooterItem($html->javascript('imgnotes.js', 'gallerybox'));
@@ -51,60 +42,19 @@ class GalleryboxController extends Controller {
 		$fileList = new FileList();		
 		$fileList->filterBySet($fs);
 		$fileList->filterByType(FileType::T_IMAGE);	
-
 		$fldca = new FileManagerAvailableColumnSet();
-
 		$columns = new FileManagerColumnSet();
-
 		$sortCol = $fldca->getColumnByKey('fDateAdded');
 		$columns->setDefaultSortColumn($sortCol, 'desc');
-
-		
 		$columns = FileManagerColumnSet::getCurrent();
-		
-
 		$col = $columns->getDefaultSortColumn();	
 		$fileList->sortBy($col->getColumnKey(), $col->getColumnDefaultSortDirection());
 		$fileList->setItemsPerPage(30);
 		$files = $fileList->getPage();
 		$fileList->getPagination();
-		$ih =Loader::helper('image');
 		
-		$mainGalleryList = '';
-		foreach($files as $img){
-			
-			$fv = $img->getApprovedVersion();
-			$imgt = $fv->getTitle();
-			$imgd = $fv->getDescription();
-			$imgThumb = $ih->getThumbnail($img,300,300);
-			
-			$imgH = $imgThumb->height;
-			$imgW = $imgThumb->width;
-			$topOffset = (112 - $imgH)/2;
-			$leftOffset = (112 - $imgW)/2;
-			$imgui = UserInfo::getByID($img->getUserID());
-			if(!is_object($imgui)){
-			  $imgui = UserInfo::getByID(1);
-			}
-			if ($imgui->getAttribute('first_name') == ''){
-				$username =  $imgui->getUserName();
-			}else{
-				$username = $imgui->getAttribute('first_name').' '.$imgui->getAttribute('last_name');
-			}
-			
-			$title = substr(htmlspecialchars($imgt),0,24);
-			if (strlen($imgt) > 24){
-				$title .= '...';
-			}
-			$mainGalleryList .='<div class="gbx-gallery-item"><div class="gbximgwrapper"><a href="'.View::url('/gallerybox/image',$img->getFileID()).'" rel="overpop" data-placement="below" data-content="by '.$username.': '.htmlspecialchars(str_replace('"',"'",$imgd)).'" title="'.$title.'">';
-			$mainGalleryList .= '<div><img src="'.$imgThumb->src.'" width="'.$imgThumb->width.'" height="'.$imgThumb->height.'" title="'.str_replace('"',"'",$imgt).'" style="margin-top:'.intval($topOffset).'px;margin-left:'.intval($leftOffset).'px"/></div></a></div></div>';
-				
-		}
-		$mainGalleryList .='<div class="clearfix"></div>';
-
-		$this->set('gallery',$mainGalleryList);
+		$this->set('files', $files);
 		$this->set('paging',$fileList);
-
 	}
 	
 	public function image($fID=NULL){
@@ -125,7 +75,6 @@ class GalleryboxController extends Controller {
 			$this->set('favfID',$fID);
 			$this->set('favu',$favu);
 			
-			
 			$fs = FileSet::getByName('user_gallery_'.$f->getUserID());
 			$fileList = new FileList();		
 			$fileList->filterBySet($fs);
@@ -138,40 +87,30 @@ class GalleryboxController extends Controller {
 			$sortCol = $fldca->getColumnByKey('fDateAdded');
 			$columns->setDefaultSortColumn($sortCol, 'desc');
 	
-			
 			$columns = FileManagerColumnSet::getCurrent();
 			
-	
 			$col = $columns->getDefaultSortColumn();	
 			$fileList->sortBy($col->getColumnKey(), $col->getColumnDefaultSortDirection());
 			$fileList->setItemsPerPage(6);
 			$files = $fileList->getPage();
 			$this->set('ih',Loader::helper('image'));
 			$this->set('galleryImages', $files);
-				
-			
+					
 	}	
 	
 
-	
-	
-public function tag($tag=''){
+	public function tag($tag=''){
 		
 		$fileList = new FileList();		
 		$fileList->filterByTag($tag);
 		$fileList->filterByType(FileType::T_IMAGE);	
 
 		$fldca = new FileManagerAvailableColumnSet();
-
 		$columns = new FileManagerColumnSet();
-
 		$sortCol = $fldca->getColumnByKey('fDateAdded');
 		$columns->setDefaultSortColumn($sortCol, 'desc');
-
-		
 		$columns = FileManagerColumnSet::getCurrent();
 		
-
 		$col = $columns->getDefaultSortColumn();	
 		$fileList->sortBy($col->getColumnKey(), $col->getColumnDefaultSortDirection());
 		
@@ -220,19 +159,13 @@ public function tag($tag=''){
 		$fileList->filterByType(FileType::T_IMAGE);	
 		
 		$fldca = new FileManagerAvailableColumnSet();
-
 		$columns = new FileManagerColumnSet();
-
 		$sortCol = $fldca->getColumnByKey('fDateAdded');
 		$columns->setDefaultSortColumn($sortCol, 'desc');
-
-		
 		$columns = FileManagerColumnSet::getCurrent();
-		
+		$col = $columns->getDefaultSortColumn();
 
-		$col = $columns->getDefaultSortColumn();	
 		$fileList->sortBy($col->getColumnKey(), $col->getColumnDefaultSortDirection());
-		
 		$files = $fileList->get();
 		
 		$ih =Loader::helper('image');
@@ -408,51 +341,19 @@ public function tag($tag=''){
 		$fileList->filterBySet($fs);
 		$fileList->filterByKeywords($this->post('keywords'));
 		$fileList->filterByType(FileType::T_IMAGE);	
-
 		$fldca = new FileManagerAvailableColumnSet();
-
 		$columns = new FileManagerColumnSet();
-
 		$sortCol = $fldca->getColumnByKey('fDateAdded');
 		$columns->setDefaultSortColumn($sortCol, 'desc');
-
-		
 		$columns = FileManagerColumnSet::getCurrent();
-		
-
 		$col = $columns->getDefaultSortColumn();	
 		$fileList->sortBy($col->getColumnKey(), $col->getColumnDefaultSortDirection());
-		
 		$fileList->setItemsPerPage(30);
 		$files = $fileList->getPage();
 		$fileList->getPagination();
-		
-		$ih =Loader::helper('image');
-				$mainGalleryList = '';
-		foreach($files as $img){
-			
-			$fv = $img->getApprovedVersion();
-			$imgt = $fv->getTitle();
-			$imgThumb = $ih->getThumbnail($img,300,300);
-			
-			$imgH = $imgThumb->height;
-			$imgW = $imgThumb->width;
-			$topOffset = (112 - $imgH)/2;
-			$leftOffset = (112 - $imgW)/2;
-			
-			$imgui = UserInfo::getByID($img->getUserID());
-			if ($imgui->getAttribute('first_name') == ''){
-				$username =  $imgui->getUserName();
-			}else{
-				$username = $imgui->getAttribute('first_name').' '.$imgui->getAttribute('last_name');
-			}
-			$mainGalleryList .='<div class="gbx-gallery-item"><div class="gbximgwrapper"><a href="'.View::url('/gallerybox/image',$img->getFileID()).'" rel="poptool" title="'.$username.': '.htmlspecialchars($imgt).'">';
-			$mainGalleryList .= '<div><img src="'.$imgThumb->src.'" width="'.$imgThumb->width.'" height="'.$imgThumb->height.'" title="'.str_replace('"',"'",$imgt).'" style="margin-top:'.intval($topOffset).'px;margin-left:'.intval($leftOffset).'px"/></div></a></div></div>';
-				
-		}
-		$mainGalleryList .='<div class="clearfix"></div>';
-		$this->set('searchResultsList', $mainGalleryList);
-		$this->set('searchPaging',$fileList);
+
+		$this->set('files', $files);
+		$this->set('paging',$fileList);
 		$this->set('keywords', $this->post('keywords'));
 	}
 	

@@ -14,7 +14,7 @@
           break;
 		  
 		  case 'search':
-          Loader::packageElement('search_view', 'gallerybox', array('searchResultsList' => $searchResultsList, 'searchPaging' => $searchPaging, 'keywords' => $keywords));
+          Loader::packageElement('search_view', 'gallerybox', array('files' => $files, 'paging' => $paging, 'keywords' => $keywords));
 		  break;
 		  
 		  case 'user':
@@ -30,7 +30,7 @@
           break;
 		  
 		  default:
-          Loader::packageElement('gallery_view', 'gallerybox', array('pagename' => $c->getCollectionName(),'gallery' => $gallery, 'paging' => $paging));
+          Loader::packageElement('gallery_view', 'gallerybox', array('pagename' => $c->getCollectionName(),'files' => $files, 'paging' => $paging));
           break;
       }
     ?>

@@ -1,7 +1,6 @@
 <?php     
 	defined('C5_EXECUTE') or die("Access Denied.");
 
-
 ?> 
 <script type="text/javascript">
 	$(function () {
@@ -13,16 +12,20 @@
 </script>
 
 <div id="gallery-search"><form id="GallerySearchForm" method="post" action="<?php    echo $this->action('search')?>"><input type="text" name="keywords" id="keywords" value=""/><button type="submit" class="btn primary"><?php   echo t('Search')?></button></form></div>
-
+<?php if(count($files) > 0){  ?>
     <div class="clearbox"></div>
     	<div class="span<?php   echo (intval(Config::get(GBX_GALLERY_INNER_CLASS))+3)?>">
-			<?php    print $gallery;?>
+			<?php
+        foreach($files as $img):
+          Loader::packageElement('gallery_image', 'gallerybox', array('img' => $img));
+        endforeach;
+      ?>
+      <div class="clearfix"></div>
       
-        <?php  
+      <?php  
 			$summary = $paging->getSummary();
-			if ($summary->pages > 1):
-			$paginator = $paging->getPagination();
-			
+      if ($summary->pages > 1):
+      $paginator = $paging->getPagination();
 			?>
       <div class="pagination">
         <ul>
@@ -59,5 +62,5 @@
       
         </div>
 
-
+<?php }?>
 <div class="clearbox"></div>
