@@ -60,7 +60,8 @@ class GalleryboxController extends Controller {
 	public function image($fID=NULL){
 		
 		if($fID==NULL){
-			$this->redirect('/gallerybox/');		
+			$redirect = View::url('/gallerybox/');
+			header("Location: $redirect");		
 		}
 		
 			$html = Loader::helper('html');
@@ -150,7 +151,8 @@ class GalleryboxController extends Controller {
 	public function userset($fsID=NULL){
 		
 		if($fsID==NULL){
-			$this->redirect('/gallerybox/');		
+			$redirect = View::url('/gallerybox/');
+      header("Location: $redirect");		
 		}
 
 		$fileList = new FileList();	
@@ -226,7 +228,8 @@ class GalleryboxController extends Controller {
 	
 	public function user($uID=NULL){
 		if($uID==NULL){
-			$this->redirect('/gallerybox/');		
+			$redirect = View::url('/gallerybox/');
+    header("Location: $redirect");		
 		}
 		$userList = new FileList();	
 		$fs = FileSet::getByName('user_gallery_'.$uID);
@@ -250,7 +253,8 @@ class GalleryboxController extends Controller {
 		$userList->setItemsPerPage(12);
 		$userFiles = $userList->getPage();
 		if(count($userFiles) == 0){
-			$this->redirect('/gallerybox/');		
+			$redirect = View::url('/gallerybox/');
+      header("Location: $redirect");		
 		}
 		$userList->getPagination();
 		$ih =Loader::helper('image');
@@ -629,7 +633,8 @@ class GalleryboxController extends Controller {
 			
 
 		$this->saveNote($data);
-		$this->redirect(View::url('/gallerybox/image/'.$fID));
+		$redirect = View::url('/gallerybox/image/'.$fID);
+		header("Location: $redirect");
 	
 
 	}
@@ -643,7 +648,8 @@ class GalleryboxController extends Controller {
 		$compStatement = '{"x1":"'.$X.'","y1":"'.$Y.'",';
 	 	$db = Loader::db();
 		$in = $db->execute("DELETE from GalleryBoxNotes where fID = '$fID' AND notes LIKE '%$compStatement%'");
-		$this->redirect(View::url('/gallerybox/image/'.$fID));
+		$redirect = View::url('/gallerybox/image/'.$fID);
+		header("Location: $redirect");
 	}
 	
 	public function add_comment($fID){
@@ -675,7 +681,8 @@ class GalleryboxController extends Controller {
 		}
 
 		$this->saveComment($data);
-		$this->redirect(View::url('/gallerybox/image/'.$fID.'#gbx-user-comments'));
+		$redirect = View::url('/gallerybox/image/'.$fID).'#gbx-comments';
+		header("Location: $redirect");
 	}
 	
 	private function saveNote($data) {
@@ -713,7 +720,8 @@ class GalleryboxController extends Controller {
      	$commentID = $this->post('comID');
 	 	$db = Loader::db();
 		$ic = $db->execute("DELETE from GalleryBoxComments where commentID = '$commentID'");
-		$this->redirect(View::url('/gallerybox/image/'.$fID.'#gbx-user-comments'));
+		$redirect = View::url('/gallerybox/image/'.$fID).'#gbx-comments';
+		header("Location: $redirect");
 	}
 	
 	public function getComments($fID){
@@ -760,7 +768,8 @@ class GalleryboxController extends Controller {
                 }
 
 
-			$this->redirect(View::url('/gallerybox/image',$fID.'#gbx-user-comments'));
+			$redirect = View::url('/gallerybox/image/'.$fID).'#gbx-comments';
+			header("Location: $redirect");
 
 	}
 	
