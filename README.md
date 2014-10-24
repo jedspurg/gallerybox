@@ -1,4 +1,4 @@
 GalleryBox
 ==========
 
-Social Image Sharing
+Social Image Sharing plugin for concrete5
